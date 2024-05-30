@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IoT Farm</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    </head>
+    <body>
+        <div class="header-top">
+            <div spellcheck="false" class="text" contenteditable="true">IoT Farm</div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="">Trang Chủ</a></li>
+                <li><a href="dothinhietdo.html">Thông số nhiệt độ</a></li>
+                <li><a href="dothidoam.html">Thông số độ ẩm</a></li>
+                <li><a href="dothikhi.html">Thông số khí</a></li>
+            </ul>
+        </nav>
+        <div class="main-body-sensor">
+            <div class="text1">Nhiệt độ</div>
+            <div class="text1">Độ ẩm</div>
+            <div class="text1">Khí</div>
+            <div class="main-body-sensor-nhietdo edit-sensor">
+                <div class="rainbow">
+                    <div class="vongdep">
+                        <div class="container">
+                            <div class="card">
+                                <div class="vongnhietdo">
+                                    <h1><span id="nhietdo"></span>°C</h1>
+                                </div>
+                            </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                            <defs>
+                                <linearGradient id="GradientColor">
+                                    <stop offset="0%" stop-color="#e91e63" />
+                                    <stop offset="100%" stop-color="#673ab7" />
+                                </linearGradient>
+                            </defs>
+                                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                        </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-body-sensor-doam edit-sensor">
+                <div class="rainbow">
+                    <div class="vongdep">
+                        <div class="container">
+                            <div class="card">
+                                <div class="vongnhietdo">
+                                    <h1><span id="doamdat"></span>%</h1>
+                                </div>
+                            </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                            <defs>
+                                <linearGradient id="GradientColor">
+                                    <stop offset="0%" stop-color="#e91e63" />
+                                    <stop offset="100%" stop-color="#673ab7" />
+                                </linearGradient>
+                            </defs>
+                                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                        </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-body-sensor-khi edit-sensor">
+                <div class="rainbow">
+                    <div class="vongdep">
+                        <div class="container">
+                            <div class="card">
+                                <div class="vongnhietdo">
+                                    <h1><span id="dophdat"></span >ppm</h1>
+                                </div>
+                            </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                            <defs>
+                                <linearGradient id="GradientColor">
+                                    <stop offset="0%" stop-color="#e91e63" />
+                                    <stop offset="100%" stop-color="#673ab7" />
+                                </linearGradient>
+                            </defs>
+                                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                        </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+            
+            <div class="main-body-button">       
+                <div class="btntuoicay">           
+                    <div class="text2">Tưới cây</div>
+                    <img src="watering-can.png" id="anhtuoi" alt=".">
+                    <button type="button" class="btn" id="btntuoion">On</button>
+                    <button type="button" class="btn" id="btntuoioff" >Off</button><br><br>
+                </div>
+                <div class="btnbonphan">
+                    <div class="text2">Bón phân</div>
+                    <img src="sack.png" id="anhbonphan" alt="">
+                    <button type="button" class="btn" id="btnbonphanon">On</button>
+                    <button type="button" class="btn" id="btnbonphanoff" >Off</button><br><br>
+                </div>
+                <div class="btnchenang">
+                    <div class="text2">Che nắng</div>
+                    <img src="greenhouse-effect.png" id="anhchenang" alt="">
+                    <button type="button" class="btn" id="btnchenangon">On</button>
+                    <button type="button" class="btn" id="btnchenangoff" >Off</button><br><br>
+                </div>
+            
+        </div>
+        <div class="footer">
+            <Label>Lê Quang Tuấn </Label><br>
+            <Label>Ngô Thành Đạt</Label><br>
+            <label>Liên hệ: 21139066@student.hcmute.edu.vn</label>
+        </div>   
+        <!-- <script src="function.js"></script> -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+        <script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDEKxHUYIAEOvQpwpCKXGhCMovmD3i4COE",
+    authDomain: "fir-smartfarm-1491e.firebaseapp.com",
+    databaseURL: "https://fir-smartfarm-1491e-default-rtdb.firebaseio.com",
+    projectId: "fir-smartfarm-1491e",
+    storageBucket: "fir-smartfarm-1491e.appspot.com",
+    messagingSenderId: "979285833814",
+    appId: "1:979285833814:web:f7bdee88344c6b739ea3f7",
+    measurementId: "G-2D648CF9CE"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var nhietDo = document.getElementById('nhietdo');
+  var dbRef = firebase.database().ref('/data').child('temperature');
+  var doAmdat = document.getElementById('doamdat');
+  var dbRef3 = firebase.database().ref('/data').child('humidity');
+  var doPHdat = document.getElementById('dophdat');
+  var dbRef4 = firebase.database().ref('/data').child('air');
+  dbRef.on('value', snap => nhietDo.innerText = snap.val());
+  dbRef3.on('value', snap => doAmdat.innerText = snap.val());
+  dbRef4.on('value', snap => doPHdat.innerText = snap.val());
+  
+  
+  
+  const database = firebase.database();
+
+  let btnbonphanoff = document.querySelector('#btnbonphanoff');
+  let img = document.querySelector('#anhbonphan');
+  let btnbonphanon = document.querySelector('#btnbonphanon');
+  btnbonphanon.addEventListener('click', ()=>{
+      img.src = 'sack.gif';
+      database.ref().update({
+        "BonPhan" : 1
+      });
+
+  })
+  btnbonphanoff.addEventListener('click', ()=>{
+      img.src = 'sack.png';
+      database.ref().update({
+        "BonPhan" : 0
+      });
+
+  })
+  
+  
+  let btnchenangon = document.querySelector('#btnchenangon');
+  let img1 = document.querySelector('#anhchenang');
+  let btnchenangoff = document.querySelector('#btnchenangoff');
+  // functions nut bam
+  // const database=firebase.database();
+  // const deviceRef=database.ref('quan1');
+  
+  btnchenangon.addEventListener('click', ()=>{
+      img1.src = 'greenhouse-effect.gif';
+      database.ref().update({
+        "CheNang" : 1
+      });
+
+  })
+  
+  btnchenangoff.addEventListener('click', ()=>{
+      img1.src = 'greenhouse-effect.png';
+      database.ref().update({
+        "CheNang" : 0
+  });
+})
+  
+  let btntuoion = document.querySelector('#btntuoion');
+  let img2 = document.querySelector('#anhtuoi');
+  let btntuoioff = document.querySelector('#btntuoioff');
+  // functions nut bam
+  // const database=firebase.database();
+  // const deviceRef=database.ref('quan1');
+  
+  btntuoion.addEventListener('click', ()=>{
+      img2.src = 'watering-can.gif';
+      database.ref().update({
+        "TuoiNuoc" : 1
+  });
+  })
+  
+  btntuoioff.addEventListener('click', ()=>{
+      img2.src = 'watering-can.png';
+      database.ref().update({
+        "TuoiNuoc" : 0
+  });
+  })
+
+
+       
+</script>
+    </body>
+
+</html>

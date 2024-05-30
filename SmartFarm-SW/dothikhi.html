@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <link rel="stylesheet" type="text/css" href="cssdothinhietdo.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </head>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+        <!-- lien ket voi functions.js -->
+        
+        
+        <script>
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          const firebaseConfig = {
+            apiKey: "AIzaSyDEKxHUYIAEOvQpwpCKXGhCMovmD3i4COE",
+            authDomain: "fir-smartfarm-1491e.firebaseapp.com",
+            databaseURL: "https://fir-smartfarm-1491e-default-rtdb.firebaseio.com",
+            projectId: "fir-smartfarm-1491e",
+            storageBucket: "fir-smartfarm-1491e.appspot.com",
+            messagingSenderId: "979285833814",
+            appId: "1:979285833814:web:f7bdee88344c6b739ea3f7",
+            measurementId: "G-2D648CF9CE"
+        };
+          
+        
+
+
+         
+    
+        </script>
+        
+        <div class="header-top">
+            <div id="stars-container">
+                <div id='stars'></div>
+                <div id='stars2'></div>
+                <div id='stars3'></div>
+            </div>
+            <div spellcheck="false" class="text" contenteditable="true">IoT Farm</div>
+        </div>
+
+        <nav>
+            <ul class="menu">
+                <li><a href="trangchu.html">Trang Chủ</a></li>
+                <li><a href="dothinhietdo.html">Thông số nhiệt độ</a></li>
+                <li><a href="dothidoam.html">Thông số độ ẩm</a></li>
+                <li><a href="dothidoph.html">Thông số khí</a></li>
+            </ul>
+        </nav>
+                <div class="boxbox">
+                    <div class="box2">
+                        <canvas id="myChart" ></canvas>
+                                <script>
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        var dbRef = firebase.database().ref('/data').child('air');
+        var Khi;
+
+        dbRef.on('value', snap => Khi = snap.val());
+       
+        const xValues = [];
+        const yValues = [];
+
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: xValues,
+              datasets: [
+                {
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "rgba(255, 0, 0, 1)",
+                  borderColor: "rgba(255, 0, 0, 0.2)",
+                  borderWidth: 1,
+                  label: "Khí",
+                  data: yValues,
+                }
+              ],
+            },
+            options: {
+              legend: { display: false },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    max: 100
+                  }
+                }]
+              }
+            }
+          });
+          function updateChart() {
+            const currentTime = new Date().toLocaleTimeString();
+            const newYValue = parseFloat(Khi);
+            xValues.push(currentTime);
+            yValues.push(newYValue);
+            const maxDataPoints = 12;
+            if (xValues.length > maxDataPoints) {
+              xValues.shift();
+              yValues.shift();
+             
+            }
+            myChart.data.labels = xValues;
+            myChart.data.datasets[0].data = yValues;
+            myChart.update();
+          }
+          setInterval(updateChart, 5000);
+
+
+                                </script>
+                    </div>
+                    
+                </div>
+        </div>
+            <div class="footer">
+                <Label>Lê Quang Tuấn </Label><br>
+                <Label>Ngô Thành Đạt</Label><br>
+                <label>Liên hệ: 21139066@student.hcmute.edu.vn</label> 
+            </div>
+     
+        
+
+        
+        
+    </body>
+
+</html>
